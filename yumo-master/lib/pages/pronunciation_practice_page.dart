@@ -177,30 +177,17 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage>
       }
 
       if (_recordedFilePath != null) {
-        // Check if file exists and has content
+        // Check if file exists
         final file = File(_recordedFilePath!);
         if (await file.exists()) {
-          final fileSize = await file.length();
-          if (fileSize > 1000) {
-            // At least 1KB
-            await _sendToASR();
-          } else {
-            setState(() => isProcessing = false);
-            if (mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Recording too short. Please try again.'),
-                  backgroundColor: Colors.orange,
-                ),
-              );
-            }
-          }
+          // Send to ASR - let the API handle file validation
+          await _sendToASR();
         } else {
           setState(() => isProcessing = false);
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Recording failed. Please try again.'),
+                content: Text('Recording file not found. Please try again.'),
                 backgroundColor: Colors.red,
               ),
             );
