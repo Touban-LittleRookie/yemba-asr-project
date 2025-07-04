@@ -1,0 +1,104 @@
+# Environment and Security
+.env
+.env.local
+.env.production
+.env.staging
+*.key
+*.pem
+*.p12
+config.json
+secrets.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+yemba_env/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Dataset and Large Files (preprocessed audio)
+yemba_dataset/
+audio/
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.aac
+*.ogg
+*.wma
+
+# Model files (if any)
+*.pkl
+*.joblib
+*.h5
+*.pb
+*.onnx
+models/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Flutter/Dart (for yumo-master)
+yumo-master/.dart_tool/
+yumo-master/.flutter-plugins
+yumo-master/.flutter-plugins-dependencies
+yumo-master/.packages
+yumo-master/.pub-cache/
+yumo-master/.pub/
+yumo-master/build/
+yumo-master/ios/Flutter/flutter_export_environment.sh
+yumo-master/ios/Flutter/Generated.xcconfig
+yumo-master/ios/Runner/GeneratedPluginRegistrant.*
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

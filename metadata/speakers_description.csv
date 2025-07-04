@@ -1,0 +1,70 @@
+SpeakerId,Name,Descente 1,Descente 2,Gender,Age,Native Speaker,Recording Place,Hour ,School Level(FR),School Level(EN)
+1,Dongmo Joy,TRUE,TRUE,M,10,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+2,Ngeumo Adriyane,TRUE,TRUE,M,13,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+3,Ngeudjio Yuelin,TRUE,TRUE,M,9,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+4,Nouboudem Josbi,TRUE,TRUE,M,11,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+5,Sapi Rosvel,TRUE,TRUE,M,12,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+6,Nanfack rois,TRUE,TRUE,M,10,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+7,Diffo Jovane,TRUE,TRUE,M,12,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+8,Tchida Mervin,TRUE,TRUE,M,12,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+9,Feudjio Carelle,TRUE,TRUE,F,11,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+10,Lemofoet Darrel,TRUE,TRUE,F,10,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+11,Djokeng Bella,TRUE,TRUE,F,12,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+12,Mekounang Maveline,TRUE,TRUE,F,10,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+13,Mezan Miranda,FALSE,FALSE,F,11,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+14,Maffo Ange,TRUE,FALSE,F,9,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+15,Dongmo Ireina,TRUE,FALSE,F,9,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+16,Nongni Merveille,TRUE,FALSE,F,9,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+17,Messa Maveline,TRUE,FALSE,F,11,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+18,Djoumessi Kendra,TRUE,FALSE,F,8,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+19,Tchoubou Tresor,FALSE,FALSE,M,12,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+20,Apieba Yann,FALSE,FALSE,M,11,Yes,Quiet school classroom,7am-1pm,CM1,Class 5
+21,Dongmo Vanick,FALSE,FALSE,M,12,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+22,Dongmo Ernest,FALSE,FALSE,M,14,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+23,Toukem Yanick,FALSE,FALSE,M,11,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+24,Fokoua Brayane,FALSE,FALSE,M,15,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+25,Kaze Alane,FALSE,FALSE,M,13,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+26,Saatekou Derick,FALSE,FALSE,M,14,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+27,Avougmo Banes,FALSE,FALSE,M,14,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+28,Asop Fortus,FALSE,FALSE,M,11,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+29,Bogning Meane,FALSE,FALSE,F,12,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+30,Manendjio Loveline,FALSE,FALSE,F,11,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+31,Medontsop Megane,FALSE,FALSE,F,10,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+32,Meguefouet Manuelle,FALSE,FALSE,F,11,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+33,Abiba Couranga,FALSE,TRUE,F,12,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+34,Dongmo Freschinelle,FALSE,TRUE,F,9,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+35,Mefouegho Angeline,FALSE,TRUE,F,11,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+36,Kenlefack Laurene,FALSE,TRUE,F,11,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+37,Nankeng Sorelle,FALSE,FALSE,F,11,Yes,Quiet school classroom,1pm-2pm,CM2,Class 6
+38,Nguedjo Djeff,TRUE,FALSE,M,12,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+39,Dongmo Tonny,TRUE,FALSE,M,10,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+40,Teffeukeng Jospin,TRUE,FALSE,M,12,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+41,Tenang Christ,TRUE,FALSE,M,11,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+42,Tedjiokeng Marc,TRUE,FALSE,M,11,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+43,Tsidie Dolvin,TRUE,FALSE,M,13,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+44,Dongmo Belvora,TRUE,FALSE,F,13,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+45,Medondjio Maivana,TRUE,FALSE,F,11,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+46,Maffo Fierte,TRUE,FALSE,F,11,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+47,Solefack Naveline,TRUE,FALSE,F,12,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+48,Memanfo Annas,TRUE,FALSE,F,10,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+49,Mekeng Naveline,TRUE,FALSE,F,10,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+50,Mbouzeko Majolie,TRUE,FALSE,F,11,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+51,Medjio Princesse,TRUE,FALSE,F,11,Yes,Quiet living room of a house next to the school,11am-2pm,CM1,Class 5
+52,Mefenza Sivalnis,FALSE,FALSE,M,12,Yes,Quiet living room of a house next to the school,7am-11am,CM2,Class 6
+53,Kenfack Noubissi,FALSE,FALSE,M,11,Yes,Quiet living room of a house next to the school,7am-11am,CM2,Class 6
+54,Noupele Prince,FALSE,FALSE,M,13,Yes,Quiet living room of a house next to the school,7am-11am,CM2,Class 6
+55,Fokou Arol,FALSE,FALSE,M,12,Yes,Quiet living room of a house next to the school,7am-11am,CM2,Class 6
+56,Kana Richel,FALSE,FALSE,M,13,Yes,Quiet living room of a house next to the school,7am-11am,CM2,Class 6
+57,Azelefack Donald,FALSE,FALSE,M,14,Yes,Quiet living room of a house next to the school,7am-11am,CM2,Class 6
+58,Dongmo Prince,FALSE,FALSE,M,13,Yes,Quiet living room of a house next to the school,7am-11am,CM2,Class 6
+59,Djoufo Leo,FALSE,FALSE,M,13,Yes,Quiet living room of a house next to the school,7am-11am,CM2,Class 6
+60,Wamba Junior,FALSE,FALSE,M,13,Yes,Quiet living room of a house next to the school,7am-11am,CM2,Class 6
+61,Feujio Grace,FALSE,FALSE,F,11,Yes,Quiet school classroom,7am-11am,CM2,Class 6
+62,Tsague Gloria,FALSE,FALSE,F,11,Yes,Quiet school classroom,7am-11am,CM2,Class 6
+63,Nguissi Divine,FALSE,FALSE,F,11,Yes,Quiet school classroom,7am-11am,CM2,Class 6
+64,Medondjio Daina,FALSE,FALSE,F,13,Yes,Quiet school classroom,7am-11am,CM2,Class 6
+65,Kengni Achley,FALSE,FALSE,F,11,Yes,Quiet school classroom,7am-11am,CM2,Class 6
+66,Labowo Loveline,FALSE,FALSE,F,10,Yes,Quiet school classroom,7am-11am,CM2,Class 6
+67,Kenfack Duchelle,FALSE,FALSE,F,13,Yes,Quiet school classroom,7am-11am,CM2,Class 6
+68,Bguazon Melvine,TRUE,TRUE,F,11,Yes,Quiet school classroom,7am-11am,CM2,Class 6
+69,Dongmo Laura,TRUE,TRUE,F,11,Yes,Quiet school classroom,7am-11am,CM2,Class 6

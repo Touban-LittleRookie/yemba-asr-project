@@ -1,0 +1,61 @@
+id_word,Yemba,Phonetique,Français,English,id_ci,Centre d'interetI(FR),Center of Interest(EN)
+1,Mbeŋ,Mbǝŋ,La pluie,The rain,1,La nature,The nature
+2,Mbīŋ,Mbǝŋ,La forêt,The forest,1,La nature,The nature
+3,Míá ntshi,Míá tse,La rivière,A river,1,La nature,The nature
+4,Lekwɛ̄t,Lekwɛ̄t,La montagne,A mountain,1,La nature,The nature
+5,Meŋwɛ́’tsāŋ,Mǝŋwɛ́’tsāŋ,Le chat,A cat,1,La nature,The nature
+6,Nzenzhɛ,Nzǝnzhɛ,la mouche,A fly,1,La nature,The nature
+7,Nu,Nu,Le soleil,The sun,1,La nature,The nature
+8,Ŋgāp,Ŋgāp,La poule,The hen,1,La nature,The nature
+9,Ŋkā’,Ŋkā’,La plantation,The plantation,2,"Le village, La ville","The village, the city"
+10,Aphíɛ ntsō,Aphíɛ ntsō,Le semis,Sowing,2,"Le village, La ville","The village, the city"
+11,Mɔ nzhɛ,Mɔ nzhɛ,La piste,Track,2,"Le village, La ville","The village, the city"
+12,Lefa’-Ntsō,Lǝfa’-Ntsō,La récolte,The harvest,2,"Le village, La ville","The village, the city"
+13,Nzhɛ nchʉ-Nchʉ,Nzhɛ nchʉ-Nchʉ,Le goudron,Tar,2,"Le village, La ville","The village, the city"
+14,Ŋgya meŋwa’ne,Ŋgya mǝŋwa’ne,La librairie,The book store,2,"Le village, La ville","The village, the city"
+15,Mba ŋgɔpna apaka alā’,Mba ŋgɔpna ,La préfecture,Prefecture,2,"Le village, La ville","The village, the city"
+16,Ŋgya ntshi lepā,Ŋgya ntshi lǝpā,La bureautique,An office,2,"Le village, La ville","The village, the city"
+17,Menu ŋgɔpna,Mǝnu ŋgɔpna,Les services administratifs,Administrative services,2,"Le village, La ville","The village, the city"
+18,Ŋgya asikúu ,Ŋgya asikúu ,La salle de classe,The classroom,3,L'école,School
+19,Akɛtte atii,Akɛtte ,Le cahier,A notebook,3,L'école,School
+20,Nzi’nɛ,Nzi’nɛ,L’enseignant,The teacher,3,L'école,School
+21,Sɛ́h alaŋa,Sɛ́h alaŋa,Le tableau noir,The blackboard,3,L'école,School
+22,Mbuɔ́,Mbuɔ́,La craie,The chalk,3,L'école,School
+23,Akia,Akia,La règle graduée,A graduated ruler,3,L'école,School
+24,Aŋwa’ne,Aŋwa’ne,Le livre,The book,3,L'école,School
+25,Atetá azwiite,Atetá azwiite,La cours de récréation,The playground,3,L'école,School
+26,Aŋŋɛtte hániaŋ,Aŋŋɛtte hániaŋ,La mécanique,The mecanic,4,Les métiers,The professions
+27,Ŋkɔ’ɔ́ lɔ́kta,Ŋkɔ’ɔ́ lɔ́kta,La médecine,Medicine,4,Les métiers,The professions
+28,Ajʉ’ɛ́ ŋgɔ̄ŋ,Ajʉ’ɛ́ ŋgɔ̄ŋ,L’agriculture,Agriculture,4,Les métiers,The professions
+29,Ashuŋɔ,Ashuŋɔ,La conduite,The driving,4,Les métiers,The professions
+30,Afa’a Téla,Afa’a Téla,La couture,Sewing,4,Les métiers,The professions
+31,Lekɔ metsō,Lǝkɔ metsō,L’artisanat,Craftsmanship,4,Les métiers,The professions
+32,Ŋkɔɔ́ athū,Ŋkɔɔ́ athū,La coiffure,The hairstyle,4,Les métiers,The professions
+33,Aneŋɛ mena,Anǝŋɛ mena,L'élevage,Livestock,4,Les métiers,The professions
+34,Mba Letshíɛ́ metúa,Mba Letshíɛ́ metúa,La gare routière,The bus station,5,Les voyages,The travels
+35,Ŋgya leziŋ,Ŋgya leziŋ,Le bus,A bus,5,Les voyages,The travels
+36,Mba letshiɛ́ metúa lephū,Mba letshiɛ́ metúa lephū,L'aéroport,The airport,5,Les voyages,The travels
+37,Metúa Ntshi,Metúa Ntshi,Le bateau,A boat,5,Les voyages,The travels
+38,Mba letshiɛ́ metúa ntshi,Mba letshiɛ́ metúa ntshi,Le port,A port,5,Les voyages,The travels
+39,Kwáŋ mé ntǝ̄,Kwáŋ,La moto,A motorcycle,5,Les voyages,The travels
+40,Metúa,Metúa,La voiture,A car,5,Les voyages,The travels
+41,Metúa lephū,Metúa lephū,L’avion,The plane,5,Les voyages,The travels
+42,Mbaŋa afho,Mbaŋa afho,Le comprimé,One tablet,6,La santé,The health
+43,Leswiá’ Lɔ́kta,Leswiá’ Lɔ́kta,Une seringue,A needle,6,La santé,The health
+44,Ayɛt-eféŋ,Ayɛt-efǝŋ,Un sparadrap,A plaster,6,La santé,The health
+45,Mɔ lɔ́kta,Mɔ lɔ́kta,L’infirmier,The nurse,6,La santé,The health
+46,Míá Lɔ́kta,Míá Lɔ́kta,Un médecin,Doctor,6,La santé,The health
+47,Akɛttɛ afho,Akɛttɛ afho,L'ordonnance,The order,6,La santé,The health
+48,Kamɛlɛ,Kamɛlɛ,La vaccination,The vaccination,6,La santé,The health
+49,Mbalɔŋ,Mbalɔŋ,Un ballon,A ball,7,Sports et Loisirs,Sports and Hobbies
+50,Leká,Lǝká,Un sifflet,A whistle,7,Sports et Loisirs,Sports and Hobbies
+51,Ntǝm mbalɔŋ,Ntem mbalɔŋ,Un joueur,A player,7,Sports et Loisirs,Sports and Hobbies
+52,Ntɔŋ lǝká,Ntɔŋ leká,L’arbitre,The referee,7,Sports et Loisirs,Sports and Hobbies
+53,Mbalɔŋ mbū,Mbalɔŋ mbū,Le handball,Handball,7,Sports et Loisirs,Sports and Hobbies
+54,Elaŋ mbalɔŋ,Elaŋ mbalɔŋ,Une paire de godasse,A pair of shoes,7,Sports et Loisirs,Sports and Hobbies
+55,Atetá aka’te mbalɔŋ,Atetá aka’te mbalɔŋ,Un stade,A stadium,7,Sports et Loisirs,Sports and Hobbies
+56,Nzhɛ lekʉʉ,Nzhɛ lekʉʉ,La piste de course,The race track,7,Sports et Loisirs,Sports and Hobbies
+57,Atsá’,Atsá’,La Terre,Earth,8,Dans l'espace,In space
+58,Menēk saŋ,Mǝnēk saŋ,Les étoiles,The stars,8,Dans l'espace,In space
+59,Saŋ,Saŋ,La lune,The moon,8,Dans l'espace,In space
+60,Ŋgɔŋ atsetsá’,Ŋgɔŋ atsetsá’,La planète,The planet,8,Dans l'espace,In space
