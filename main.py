@@ -8,11 +8,19 @@ from fuzzywuzzy import fuzz
 import soundfile as sf
 import io
 
-# Load Whisper small model once at startup
-try:
-    model = whisper.load_model("small")
-except Exception as e:
-    raise Exception(f"Failed to load Whisper model: {str(e)}")
+# Initialize model as None - will load on first request to save memory
+model = None
+
+
+def get_model():
+    global model
+    if model is None:
+        try:
+            model = whisper.load_model("tiny")  # Smallest model for free tier
+        except Exception as e:
+            raise Exception(f"Failed to load Whisper model: {str(e)}")
+    return model
+
 
 app = FastAPI()
 
@@ -54,7 +62,8 @@ async def validate_pronunciation(
             tmp.write(audio_data)
 
             # Transcribe the audio with Whisper
-            result = model.transcribe(tmp_path, language=None, fp16=False)
+            whisper_model = get_model()
+            result = whisper_model.transcribe(tmp_path, language=None, fp16=False)
             transcription = result["text"].strip()
 
             # Clean expected and actual strings
