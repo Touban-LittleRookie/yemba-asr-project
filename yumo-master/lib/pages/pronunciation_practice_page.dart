@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
@@ -34,6 +35,7 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage>
   bool isListening = false;
   bool hasAnswered = false;
   bool isCorrect = false;
+  bool isProcessing = false;
   int currentWordIndex = 0;
   int pronunciationScore = 0;
   int totalExercises = 0;
@@ -53,8 +55,31 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage>
   }
 
   Future<void> _initRecorder() async {
-    await _recorder.openRecorder();
-    await Permission.microphone.request();
+    try {
+      await _recorder.openRecorder();
+      final status = await Permission.microphone.request();
+      if (status != PermissionStatus.granted) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Microphone permission is required for pronunciation practice',
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to initialize recorder: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   Future<void> _loadPracticeWords() async {
@@ -79,24 +104,131 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage>
   }
 
   Future<void> _startListening() async {
-    final tempDir = await getTemporaryDirectory();
-    _recordedFilePath = '${tempDir.path}/recording.wav';
-    await _recorder.startRecorder(
-      toFile: _recordedFilePath,
-      codec: Codec.pcm16WAV,
-    );
-    setState(() => isListening = true);
+    try {
+      // Check permission first
+      final status = await Permission.microphone.status;
+      if (status != PermissionStatus.granted) {
+        final newStatus = await Permission.microphone.request();
+        if (newStatus != PermissionStatus.granted) {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Microphone permission is required'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+          return;
+        }
+      }
+
+      final tempDir = await getTemporaryDirectory();
+      _recordedFilePath =
+          '${tempDir.path}/recording_${DateTime.now().millisecondsSinceEpoch}.wav';
+
+      await _recorder.startRecorder(
+        toFile: _recordedFilePath,
+        codec: Codec.pcm16WAV,
+      );
+
+      setState(() {
+        isListening = true;
+        hasAnswered = false;
+        isProcessing = false;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Recording started...'),
+            duration: Duration(seconds: 1),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to start recording: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
   }
 
   Future<void> _stopListening() async {
-    await _recorder.stopRecorder();
-    setState(() => isListening = false);
-    if (_recordedFilePath != null) {
-      await _sendToASR();
+    try {
+      await _recorder.stopRecorder();
+      setState(() {
+        isListening = false;
+        isProcessing = true;
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Recording stopped. Processing...'),
+            duration: Duration(seconds: 2),
+            backgroundColor: Colors.blue,
+          ),
+        );
+      }
+
+      if (_recordedFilePath != null) {
+        // Check if file exists and has content
+        final file = File(_recordedFilePath!);
+        if (await file.exists()) {
+          final fileSize = await file.length();
+          if (fileSize > 1000) {
+            // At least 1KB
+            await _sendToASR();
+          } else {
+            setState(() => isProcessing = false);
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Recording too short. Please try again.'),
+                  backgroundColor: Colors.orange,
+                ),
+              );
+            }
+          }
+        } else {
+          setState(() => isProcessing = false);
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Recording failed. Please try again.'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        }
+      }
+    } catch (e) {
+      setState(() {
+        isListening = false;
+        isProcessing = false;
+      });
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to stop recording: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
   Future<void> _sendToASR() async {
+    if (practiceWords.isEmpty || currentWordIndex >= practiceWords.length) {
+      setState(() => isProcessing = false);
+      return;
+    }
+
     final request = http.MultipartRequest(
       'POST',
       Uri.parse(ApiConfig.pronunciationValidationUrl),
@@ -105,46 +237,78 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage>
     request.files.add(
       await http.MultipartFile.fromPath('audio', _recordedFilePath!),
     );
+
     try {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Analyzing pronunciation... This may take up to 60 seconds for the first request.',
+            ),
+            duration: Duration(seconds: 3),
+            backgroundColor: Colors.blue,
+          ),
+        );
+      }
+
       final response = await request.send().timeout(ApiConfig.requestTimeout);
       final responseBody = await http.Response.fromStream(response);
+
+      setState(() => isProcessing = false);
+
       if (response.statusCode == 200) {
         final result = jsonDecode(responseBody.body);
+        final score = result['score'] ?? 0;
+        final transcription = result['transcription'] ?? '';
+        final feedback = result['result'] ?? 'Analysis complete';
+
         setState(() {
-          isCorrect = result['score'] >= 80;
+          isCorrect = score >= 80;
           hasAnswered = true;
           if (isCorrect) pronunciationScore++;
         });
+
         _updateUserProgress();
+
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(result['result']),
+              content: Text(
+                '$feedback\nYou said: "$transcription"\nScore: $score%',
+              ),
               backgroundColor: isCorrect ? Colors.green : Colors.orange,
+              duration: const Duration(seconds: 4),
             ),
           );
         }
+
         _feedbackController.forward();
-        Future.delayed(const Duration(milliseconds: 1500), () {
+        Future.delayed(const Duration(milliseconds: 2000), () {
           if (mounted) _nextWord();
         });
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('ASR Error: ${response.statusCode}'),
+              content: Text(
+                'Server Error: ${response.statusCode}\nPlease try again.',
+              ),
               backgroundColor: Colors.red,
+              duration: const Duration(seconds: 3),
             ),
           );
         }
       }
     } catch (e) {
+      setState(() => isProcessing = false);
       if (mounted) {
         String errorMessage =
             'Connection error. Please check your internet connection.';
         if (e.toString().contains('TimeoutException')) {
           errorMessage =
-              'Request timed out. The server may be starting up, please try again.';
+              'Request timed out. The server may be starting up, please try again in a moment.';
+        } else if (e.toString().contains('SocketException')) {
+          errorMessage = 'No internet connection. Please check your network.';
         }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -182,6 +346,8 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage>
     setState(() {
       hasAnswered = false;
       isCorrect = false;
+      isProcessing = false;
+      isListening = false;
       _feedbackController.reset();
       currentWordIndex = (currentWordIndex + 1) % practiceWords.length;
     });
@@ -522,19 +688,32 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage>
                           // Record button
                           GestureDetector(
                             onTap:
-                                isListening ? _stopListening : _startListening,
+                                (isProcessing || hasAnswered)
+                                    ? null
+                                    : (isListening
+                                        ? _stopListening
+                                        : _startListening),
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 200),
-                              width: isListening ? 100 : 80,
-                              height: isListening ? 100 : 80,
+                              width:
+                                  isListening ? 100 : (isProcessing ? 90 : 80),
+                              height:
+                                  isListening ? 100 : (isProcessing ? 90 : 80),
                               decoration: BoxDecoration(
-                                color: isListening ? Colors.red : primarycolor,
+                                color:
+                                    isProcessing
+                                        ? Colors.orange
+                                        : (isListening
+                                            ? Colors.red
+                                            : primarycolor),
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: (isListening
-                                            ? Colors.red
-                                            : primarycolor)
+                                    color: (isProcessing
+                                            ? Colors.orange
+                                            : (isListening
+                                                ? Colors.red
+                                                : primarycolor))
                                         .withValues(alpha: 0.3),
                                     spreadRadius: isListening ? 4 : 2,
                                     blurRadius: 15,
@@ -542,19 +721,29 @@ class _PronunciationPracticePageState extends State<PronunciationPracticePage>
                                   ),
                                 ],
                               ),
-                              child: Icon(
-                                isListening ? Icons.stop : Icons.mic,
-                                color: Colors.white,
-                                size: isListening ? 40 : 36,
-                              ),
+                              child:
+                                  isProcessing
+                                      ? const CircularProgressIndicator(
+                                        color: Colors.white,
+                                        strokeWidth: 3,
+                                      )
+                                      : Icon(
+                                        isListening ? Icons.stop : Icons.mic,
+                                        color: Colors.white,
+                                        size: isListening ? 40 : 36,
+                                      ),
                             ),
                           ),
 
                           const SizedBox(height: 16),
                           Text(
-                            isListening
-                                ? 'Tap to stop recording'
-                                : 'Tap to start recording',
+                            isProcessing
+                                ? 'Processing your pronunciation...'
+                                : (isListening
+                                    ? 'Tap to stop recording'
+                                    : (hasAnswered
+                                        ? 'Recording complete'
+                                        : 'Tap to start recording')),
                             style: GoogleFonts.poppins(
                               fontSize: 14,
                               color: textcolor.withValues(alpha: 0.6),
