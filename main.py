@@ -43,56 +43,80 @@ def root():
 async def validate_pronunciation(
     expected_word: str = Form(...), audio: UploadFile = File(...)
 ):
-    # Validate file extension
-    if not audio.filename.endswith(".wav"):
-        raise HTTPException(status_code=400, detail="Only .wav files are supported")
+    try:
+        # Validate file extension
+        if not audio.filename or not audio.filename.endswith(".wav"):
+            raise HTTPException(status_code=400, detail="Only .wav files are supported")
 
-    # Save the uploaded file temporarily
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp:
-        tmp_path = tmp.name
-        try:
-            # Read and validate audio file
-            audio_data = await audio.read()
-            with sf.SoundFile(io.BytesIO(audio_data)) as sound_file:
-                if sound_file.samplerate not in [16000, 44100]:
-                    raise HTTPException(
-                        status_code=400,
-                        detail="Unsupported sample rate. Use 16kHz or 44.1kHz",
-                    )
-            tmp.write(audio_data)
+        # Save the uploaded file temporarily
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as tmp:
+            tmp_path = tmp.name
+            try:
+                # Read audio file
+                audio_data = await audio.read()
+                if len(audio_data) == 0:
+                    raise HTTPException(status_code=400, detail="Empty audio file")
 
-            # Transcribe the audio with Whisper
-            whisper_model = get_model()
-            result = whisper_model.transcribe(tmp_path, language=None, fp16=False)
-            transcription = result["text"].strip()
+                # Validate audio file format (optional - let Whisper handle most validation)
+                try:
+                    with sf.SoundFile(io.BytesIO(audio_data)) as sound_file:
+                        # More lenient sample rate check
+                        if (
+                            sound_file.samplerate < 8000
+                            or sound_file.samplerate > 48000
+                        ):
+                            raise HTTPException(
+                                status_code=400,
+                                detail=f"Unsupported sample rate: {sound_file.samplerate}Hz. Use 8kHz-48kHz",
+                            )
+                except Exception as e:
+                    # If soundfile can't read it, let Whisper try anyway
+                    print(f"SoundFile validation warning: {e}")
 
-            # Clean expected and actual strings
-            transcription_clean = transcription.lower().strip()
-            expected_clean = expected_word.lower().strip()
+                tmp.write(audio_data)
 
-            # Fuzzy match score
-            score = fuzz.ratio(expected_clean, transcription_clean)
+                # Transcribe the audio with Whisper
+                whisper_model = get_model()
+                result = whisper_model.transcribe(tmp_path, language=None, fp16=False)
+                transcription = result["text"].strip()
 
-            # Decide result
-            if score >= 80:
-                return {
-                    "result": "✅ Good pronunciation",
-                    "transcription": transcription,
-                    "score": score,
-                }
-            else:
-                return {
-                    "result": "❌ Incorrect",
-                    "transcription": transcription,
-                    "score": score,
-                }
+                # Clean expected and actual strings
+                transcription_clean = transcription.lower().strip()
+                expected_clean = expected_word.lower().strip()
 
-        except Exception as e:
-            raise HTTPException(
-                status_code=500, detail=f"Transcription error: {str(e)}"
-            )
-        finally:
-            os.remove(tmp_path)
+                # Fuzzy match score
+                score = fuzz.ratio(expected_clean, transcription_clean)
+
+                # Decide result
+                if score >= 80:
+                    return {
+                        "result": "✅ Good pronunciation",
+                        "transcription": transcription,
+                        "score": score,
+                    }
+                else:
+                    return {
+                        "result": "❌ Incorrect",
+                        "transcription": transcription,
+                        "score": score,
+                    }
+
+            except Exception as e:
+                raise HTTPException(
+                    status_code=500, detail=f"Transcription error: {str(e)}"
+                )
+            finally:
+                if os.path.exists(tmp_path):
+                    os.remove(tmp_path)
+
+    except HTTPException:
+        # Re-raise HTTP exceptions as-is
+        raise
+    except Exception as e:
+        # Catch any other unexpected errors
+        return JSONResponse(
+            status_code=500, content={"detail": f"Unexpected server error: {str(e)}"}
+        )
 
 
 if __name__ == "__main__":
